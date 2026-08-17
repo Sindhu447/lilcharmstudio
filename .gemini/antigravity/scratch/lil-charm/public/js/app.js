@@ -318,8 +318,15 @@ function removeCartItem(index) {
 function toggleCartDrawer(show) {
   const drawer = document.getElementById('cartDrawer');
   if (!drawer) return;
-  if (show) drawer.classList.add('open');
-  else drawer.classList.remove('open');
+  if (show) {
+    drawer.classList.add('open');
+    drawer.classList.add('active');
+    drawer.style.right = '0';
+  } else {
+    drawer.classList.remove('open');
+    drawer.classList.remove('active');
+    drawer.style.right = '-420px';
+  }
 }
 
 // Checkout & Razorpay Flow
