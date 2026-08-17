@@ -329,7 +329,33 @@ function toggleCartDrawer(show) {
   }
 }
 
-// Checkout & Razorpay Flow
+function togglePaymentMethod(type) {
+  const razorpayLabel = document.getElementById('paymentMethodRazorpayLabel');
+  const qrLabel = document.getElementById('paymentMethodQrLabel');
+  const qrBox = document.getElementById('upiQrPaymentBox');
+  const submitBtn = document.getElementById('checkoutSubmitBtn');
+
+  const total = currentCart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+
+  if (type === 'upi_qr') {
+    if (razorpayLabel) { razorpayLabel.style.border = '2px solid #E2E8F0'; razorpayLabel.style.background = '#F8FAFC'; }
+    if (qrLabel) { qrLabel.style.border = '2px solid var(--primary-pink)'; qrLabel.style.background = 'var(--primary-soft)'; }
+    if (qrBox) qrBox.style.display = 'block';
+    if (submitBtn) submitBtn.innerText = 'Confirm Order with UPI Payment 📲';
+
+    const qrImg = document.getElementById('upiQrCodeImg');
+    if (qrImg) {
+      qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=lilcharmstudio@upi%26pn=Lil%20Charm%20Official%26am=${total}%26cu=INR`;
+    }
+  } else {
+    if (razorpayLabel) { razorpayLabel.style.border = '2px solid var(--primary-pink)'; razorpayLabel.style.background = 'var(--primary-soft)'; }
+    if (qrLabel) { qrLabel.style.border = '2px solid #E2E8F0'; qrLabel.style.background = '#F8FAFC'; }
+    if (qrBox) qrBox.style.display = 'none';
+    if (submitBtn) submitBtn.innerText = 'Pay Now with Razorpay 💳';
+  }
+}
+
+// Checkout & Razorpay / UPI Flow
 async function handleCheckoutSubmit(e) {
   e.preventDefault();
   if (!currentCart.length) {
@@ -344,9 +370,72 @@ async function handleCheckoutSubmit(e) {
   const city = document.getElementById('custCity').value.trim();
   const state = document.getElementById('custState').value.trim();
   const pincode = document.getElementById('custPincode').value.trim();
+  const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked')?.value || 'razorpay';
 
   const totalAmount = currentCart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
 
+  // If UPI QR Code payment selected
+  if (selectedMethod === 'upi_qr') {
+    const utrNo = document.getElementById('upiUtrInput')?.value.trim();
+    if (!utrNo) {
+      showToast('Please enter your 12-digit UPI UTR / Transaction Ref No.', 'error');
+      return;
+    }
+
+    try {
+      showToast('Creating your UPI order...', 'success');
+      const createOrderRes = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customer_name: name,
+          email,
+          phone,
+          address: `${address}, ${city}, ${state} - ${pincode}`,
+          total_amount: totalAmount,
+          items: currentCart,
+          razorpay_order_id: `UPI_QR_${Date.now()}`,
+          razorpay_payment_id: utrNo
+        })
+      });
+
+      const orderData = await createOrderRes.json();
+      if (!orderData.success) {
+        showToast(orderData.message || 'Order creation failed.', 'error');
+        return;
+      }
+
+      const internalOrderId = orderData.order.id;
+
+      // Verify payment with UTR number
+      const verifyRes = await fetch('/api/payment/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          razorpay_order_id: `UPI_QR_${Date.now()}`,
+          razorpay_payment_id: utrNo,
+          razorpay_signature: 'upi_qr_user_submitted',
+          order_id: internalOrderId
+        })
+      });
+
+      const verifyData = await verifyRes.json();
+      if (verifyData.success) {
+        document.getElementById('checkoutModal').style.display = 'none';
+        renderOrderSuccess(internalOrderId, currentCart, totalAmount);
+        currentCart = [];
+        saveCartToStorage();
+        fetchProducts();
+      } else {
+        showToast(verifyData.message || 'UPI Payment verification failed', 'error');
+      }
+    } catch (err) {
+      showToast('UPI Order submission failed.', 'error');
+    }
+    return;
+  }
+
+  // Razorpay Online Flow
   try {
     showToast('Initiating Razorpay payment connection...', 'success');
 
