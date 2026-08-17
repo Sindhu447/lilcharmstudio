@@ -210,3 +210,13 @@ body.admin-body {
   object-fit: cover;
   border: 1px solid var(--admin-border);
 }
+
+/* Modal Overlay display override for Admin Modals */
+.admin-body .modal-overlay[style*="display: flex"],
+.admin-body .modal-overlay[style*="display:flex"],
+.admin-body .modal-overlay.active {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  z-index: 9999 !important;
+}
+

@@ -225,7 +225,7 @@ function openAddProductModal() {
   const preview = document.getElementById('uploadedImagesPreview');
   if (preview) preview.innerHTML = '';
 
-  document.getElementById('adminProductModal').style.display = 'flex';
+  openAdminModal('adminProductModal');
 }
 
 function openEditProductModal(productId) {
@@ -247,12 +247,27 @@ function openEditProductModal(productId) {
     preview.innerHTML = `<img src="${currentUploadedImageUrl}" style="width:80px; height:80px; object-fit:cover; border-radius:8px; border:2px solid var(--admin-pink);">`;
   }
 
-  document.getElementById('adminProductModal').style.display = 'flex';
+  openAdminModal('adminProductModal');
+}
+
+function openAdminModal(modalId) {
+  const m = document.getElementById(modalId);
+  if (m) {
+    m.style.display = 'flex';
+    m.classList.add('active');
+    m.style.opacity = '1';
+    m.style.pointerEvents = 'auto';
+  }
 }
 
 function closeAdminModal(modalId) {
   const m = document.getElementById(modalId);
-  if (m) m.style.display = 'none';
+  if (m) {
+    m.classList.remove('active');
+    m.style.display = 'none';
+    m.style.opacity = '0';
+    m.style.pointerEvents = 'none';
+  }
 }
 
 // Product Image Upload to Supabase Storage
@@ -345,7 +360,7 @@ function promptDeleteProduct(productId) {
 
   selectedDeleteProductId = productId;
   document.getElementById('deleteProdName').innerText = prod.name;
-  document.getElementById('deleteConfirmModal').style.display = 'flex';
+  openAdminModal('deleteConfirmModal');
 }
 
 async function confirmDeleteProduct() {
@@ -502,7 +517,7 @@ function openOrderDetailModal(orderId) {
     `).join('');
   }
 
-  document.getElementById('adminOrderDetailModal').style.display = 'flex';
+  openAdminModal('adminOrderDetailModal');
 }
 
 async function saveUpdatedOrderStatus() {
