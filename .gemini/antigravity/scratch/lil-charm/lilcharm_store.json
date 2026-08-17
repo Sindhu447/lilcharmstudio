@@ -1,0 +1,153 @@
+{
+  "users": [
+    {
+      "id": "f38a85cb-2716-44c0-80e9-a2a7878611d9",
+      "email": "admin@lilcharm.com",
+      "password": "$2a$10$5BOmOj4EuRUJ3Rdj3yila.6.ylxVwu4hjJcG8twureFfbNe4qhWeW",
+      "name": "Lil Charm Admin",
+      "role": "admin",
+      "created_at": "2026-08-04T15:20:27.710Z"
+    }
+  ],
+  "categories": [
+    {
+      "id": "b9e13ac9-1265-4258-9ad3-003d5bd6db33",
+      "name": "Name Keychains",
+      "slug": "name-keychains",
+      "description": "Personalized clay keychains with custom name letter beads",
+      "is_active": 1,
+      "created_at": "2026-08-04T15:20:27.712Z"
+    },
+    {
+      "id": "12b1e39e-c594-4f66-b049-e0f65e454e2e",
+      "name": "Custom Keychains",
+      "slug": "custom-keychains",
+      "description": "Handcrafted custom keychains made to your exact theme and colors",
+      "is_active": 1,
+      "created_at": "2026-08-04T15:20:27.713Z"
+    },
+    {
+      "id": "90869448-c464-456d-97ec-5951c8a40f1e",
+      "name": "Couple/Friendship Charms",
+      "slug": "couple-friendship-charms",
+      "description": "Matching split charms for besties and couples",
+      "is_active": 1,
+      "created_at": "2026-08-04T15:20:27.713Z"
+    },
+    {
+      "id": "244fca9c-8f4a-41b3-ac57-0c76032bd8cf",
+      "name": "Mini Charms",
+      "slug": "mini-charms",
+      "description": "Adorable miniature clay figures for bags, zippers, and phones",
+      "is_active": 1,
+      "created_at": "2026-08-04T15:20:27.714Z"
+    },
+    {
+      "id": "96f11c83-e05f-4655-a93e-f45719c432a2",
+      "name": "Bag Charms",
+      "slug": "bag-charms",
+      "description": "Statement bag charms and aesthetic backpack clip-ons",
+      "is_active": 1,
+      "created_at": "2026-08-04T15:20:27.715Z"
+    },
+    {
+      "id": "6f3b22ba-6978-4663-a849-daf7f629f2fa",
+      "name": "Gift Sets",
+      "slug": "gift-sets",
+      "description": "Curated gift boxes with aesthetic packaging and greeting cards",
+      "is_active": 1,
+      "created_at": "2026-08-04T15:20:27.716Z"
+    }
+  ],
+  "products": [
+    {
+      "id": "d727c1ce-14b4-42d7-93a9-ce7a0b72647a",
+      "title": "Pastel Strawberry Name Keychain 🍓",
+      "description": "Hand-sculpted sweet strawberry charm with pastel letter beads and soft tassel. Customized with your name!",
+      "price": 299,
+      "discount_price": 249,
+      "stock": 25,
+      "category_id": "b9e13ac9-1265-4258-9ad3-003d5bd6db33",
+      "category_name": "Name Keychains",
+      "images": "[\"https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80\",\"https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80\"]",
+      "is_featured": 1,
+      "is_bestseller": 1,
+      "is_new_arrival": 1,
+      "is_active": "[{\"name\":\"Engraved Name / Word\",\"type\":\"text\",\"required\":true,\"placeholder\":\"e.g. Lily\"},{\"name\":\"Color Theme\",\"type\":\"select\",\"required\":true,\"options\":[\"Pastel Pink\",\"Lilac Violet\",\"Mint Green\",\"Soft Peach\"]},{\"name\":\"Tassel Accent\",\"type\":\"select\",\"required\":false,\"options\":[\"Rose Gold Star\",\"Pearl Bead\",\"Cute Ribbon\"]},{\"name\":\"Special Instructions\",\"type\":\"textarea\",\"required\":false,\"placeholder\":\"Any specific request?\"}]",
+      "customization_fields": "[\"Popular\",\"Custom Name\",\"Best Seller\"]",
+      "created_at": "2026-08-04T15:20:27.717Z"
+    },
+    {
+      "id": "669482c8-39df-450a-8f05-76d7154bd2b3",
+      "title": "Matchy Pink Matcha & Donut Couple Charms 🍩",
+      "description": "Split pair of adorable matcha cup & glazed donut clay charms. Perfect for couples or best friends!",
+      "price": 499,
+      "discount_price": 399,
+      "stock": 15,
+      "category_id": "90869448-c464-456d-97ec-5951c8a40f1e",
+      "category_name": "Couple/Friendship Charms",
+      "images": "[\"https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=800&q=80\"]",
+      "is_featured": 1,
+      "is_bestseller": 1,
+      "is_new_arrival": 1,
+      "is_active": "[{\"name\":\"Initials for Charm #1\",\"type\":\"text\",\"required\":true,\"placeholder\":\"e.g. A\"},{\"name\":\"Initials for Charm #2\",\"type\":\"text\",\"required\":true,\"placeholder\":\"e.g. K\"},{\"name\":\"Clasp Color\",\"type\":\"select\",\"required\":true,\"options\":[\"Silver Heart\",\"Gold Star\",\"Rose Gold Clip\"]}]",
+      "customization_fields": "[\"Couple Gift\",\"Matching\"]",
+      "created_at": "2026-08-04T15:20:27.718Z"
+    },
+    {
+      "id": "44ab35aa-c671-4f0c-889c-6dfb18204c54",
+      "title": "Aesthetic Boba Bear Bag Charm 🧋",
+      "description": "Cute miniature boba tea cup with a sleepy teddy bear topper. Clip it onto your tote bag or backpack!",
+      "price": 349,
+      "discount_price": 299,
+      "stock": 30,
+      "category_id": "96f11c83-e05f-4655-a93e-f45719c432a2",
+      "category_name": "Bag Charms",
+      "images": "[\"https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=800&q=80\"]",
+      "is_featured": 1,
+      "is_bestseller": 0,
+      "is_new_arrival": 1,
+      "is_active": "[{\"name\":\"Boba Flavor Color\",\"type\":\"select\",\"required\":true,\"options\":[\"Taro Purple\",\"Matcha Green\",\"Classic Milk Tea\",\"Strawberry Milk\"]},{\"name\":\"Reference Image Upload\",\"type\":\"file\",\"required\":false}]",
+      "customization_fields": "[\"Boba\",\"Aesthetic\"]",
+      "created_at": "2026-08-04T15:20:27.719Z"
+    },
+    {
+      "id": "9a427027-d3b4-43e7-8987-69e375cf5e69",
+      "title": "Cozy Cloud & Rainbow Mini Charm ☁️🌈",
+      "description": "Dreamy soft cloud with pastel rainbow drops. Light and compact charm for keys or phone cases.",
+      "price": 199,
+      "discount_price": null,
+      "stock": 40,
+      "category_id": "244fca9c-8f4a-41b3-ac57-0c76032bd8cf",
+      "category_name": "Mini Charms",
+      "images": "[\"https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80\"]",
+      "is_featured": 0,
+      "is_bestseller": 0,
+      "is_new_arrival": 1,
+      "is_active": "[{\"name\":\"Custom Text on Cloud\",\"type\":\"text\",\"required\":false,\"placeholder\":\"Short text (max 6 letters)\"}]",
+      "customization_fields": "[\"Mini\",\"Pastel\"]",
+      "created_at": "2026-08-04T15:20:27.720Z"
+    },
+    {
+      "id": "9b4ad783-bcdc-4463-98f6-1535d0b26af0",
+      "title": "Ultimate Handmade Happiness Gift Box 🎁",
+      "description": "Includes 1 Custom Name Keychain, 1 Mini Bag Charm, Aesthetic Sticker Pack, and a handwritten personalized gift note.",
+      "price": 899,
+      "discount_price": 749,
+      "stock": 10,
+      "category_id": "6f3b22ba-6978-4663-a849-daf7f629f2fa",
+      "category_name": "Gift Sets",
+      "images": "[\"https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=80\"]",
+      "is_featured": 1,
+      "is_bestseller": 1,
+      "is_new_arrival": 1,
+      "is_active": "[{\"name\":\"Recipient Name for Keychain\",\"type\":\"text\",\"required\":true},{\"name\":\"Gift Card Message\",\"type\":\"textarea\",\"required\":true,\"placeholder\":\"Write your heart out...\"}]",
+      "customization_fields": "[\"Gift Set\",\"Luxury Box\"]",
+      "created_at": "2026-08-04T15:20:27.720Z"
+    }
+  ],
+  "carts": [],
+  "orders": [],
+  "reviews": [],
+  "site_settings": []
+}

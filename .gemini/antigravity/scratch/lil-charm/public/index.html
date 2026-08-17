@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lil Charm | Handmade Customized Clay Charms & Keychains 🎀</title>
+  <meta name="description" content="Shop adorable handmade customized clay charms, personalized keychains, couple charms, and mini gifts crafted with love. High quality aesthetic small business.">
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Razorpay Checkout SDK -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar" id="announcementBar">
+    🎀 Free shipping on all orders over ₹499! Use code LILCHARM10 for 10% OFF 🎀
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="header">
+    <div class="header-container">
+      <a href="/" class="brand-logo">
+        <div class="logo-badge">🎀</div>
+        <span class="brand-name" id="brandNameDisplay">Lil Charm</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#shop" class="nav-link">Shop</a></li>
+        <li><a href="#about" class="nav-link">About Us</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <li><a href="/admin.html" class="nav-link" style="color: var(--primary-pink); font-weight:700;"><i class="fa-solid fa-lock"></i> Admin Portal</a></li>
+      </ul>
+
+      <div class="header-actions">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="searchInput" class="search-input" placeholder="Search keychains, charms...">
+        </div>
+
+        <button class="btn-icon" id="cartToggleBtn" title="Shopping Cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-badge" id="cartCountBadge">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-tag">✨ Handmade Small Business with Love</div>
+        <h1 class="hero-title" id="heroTitle">Handmade with love, <span>made just for you 💕</span></h1>
+        <p class="hero-subtitle" id="heroSubtitle">Custom clay charms, aesthetic keychains, and personalized mini gifts crafted with extreme care and premium pastel finishing.</p>
+        <div class="hero-cta">
+          <a href="#shop" class="btn-primary">Shop Collection <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="#customization-info" class="btn-secondary">How Customization Works</a>
+        </div>
+      </div>
+
+      <div class="hero-gallery">
+        <div class="hero-card">
+          <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" alt="Custom Strawberry Keychain">
+          <div class="hero-card-title">Strawberry Name Keychain 🍓</div>
+        </div>
+        <div class="hero-card">
+          <img src="https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=800&q=80" alt="Couple Matching Charms">
+          <div class="hero-card-title">Matchy Couple Charms 🍩</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Pills Filter Bar -->
+  <div class="category-bar-section">
+    <div class="category-pills" id="categoryPillsContainer">
+      <button class="pill active" data-category="">All Collection ✨</button>
+      <!-- Categories dynamically populated here -->
+    </div>
+  </div>
+
+  <!-- Main Shop Section -->
+  <section class="shop-section" id="shop">
+    <div class="section-title-wrap">
+      <div class="section-subtitle">Our Sweet Creations</div>
+      <h2 class="section-title">Explore Custom Charms & Gifts</h2>
+    </div>
+
+    <div class="shop-container">
+      <!-- Sidebar Filters -->
+      <aside class="sidebar">
+        <div class="filter-group">
+          <div class="filter-title">Categories</div>
+          <ul class="filter-list" id="sidebarCategoryList">
+            <!-- Dynamic categories list -->
+          </ul>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-title">Quick Tags</div>
+          <ul class="filter-list">
+            <li class="filter-item">
+              <label><input type="checkbox" class="tag-filter" value="Popular"> Popular Items</label>
+            </li>
+            <li class="filter-item">
+              <label><input type="checkbox" class="tag-filter" value="Custom Name"> Custom Name</label>
+            </li>
+            <li class="filter-item">
+              <label><input type="checkbox" class="tag-filter" value="Couple Gift"> Couple & Friendship</label>
+            </li>
+          </ul>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-title">Sort By</div>
+          <select id="sortSelect" class="sort-select">
+            <option value="newest">Newest Arrivals</option>
+            <option value="price_low">Price: Low to High</option>
+            <option value="price_high">Price: High to Low</option>
+          </select>
+        </div>
+      </aside>
+
+      <!-- Products Listing Area -->
+      <div class="products-area">
+        <div class="products-top-bar">
+          <div class="results-count" id="productsCountText">Showing products...</div>
+        </div>
+
+        <div class="products-grid" id="productsGrid">
+          <!-- Dynamic Products populated here -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Us Section -->
+  <section class="about-section" id="about" style="padding: 80px 24px; background: white;">
+    <div class="hero-container" style="max-width:1000px;">
+      <div>
+        <div class="hero-tag">💖 The Lil Charm Story</div>
+        <h2 style="font-size:2.4rem; font-weight:800; margin-bottom:16px;">Handcrafted Charms Made to Bring Joy</h2>
+        <p style="color:var(--text-muted); font-size:1.05rem; margin-bottom:20px;">
+          Lil Charm started with a simple passion: turning soft clay into tiny, adorable pieces of art that carry personal memories. Every single charm, keychain, and mini gift is lovingly hand-sculpted, baked, painted, and sealed with a protective glossy finish right in our small studio.
+        </p>
+        <p style="color:var(--text-muted); font-size:1.05rem;">
+          Whether you are looking for a personalized name keychain, matching best friend charms, or a thoughtful surprise gift, we customize every single detail to fit your story.
+        </p>
+      </div>
+      <div>
+        <img src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=80" alt="Handmade Gift Box" style="width:100%; border-radius:var(--radius-lg); box-shadow:var(--shadow-md);">
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact & Social Section -->
+  <section class="contact-section" id="contact" style="padding: 80px 24px; background: var(--bg-soft-gradient);">
+    <div class="section-title-wrap">
+      <div class="section-subtitle">Get in Touch</div>
+      <h2 class="section-title">We'd Love to Hear From You!</h2>
+    </div>
+
+    <div style="max-width:700px; margin:0 auto; background:white; padding:40px; border-radius:var(--radius-lg); border:1px solid var(--border-pink); box-shadow:var(--shadow-md);">
+      <form id="contactForm">
+        <div class="field-group">
+          <label>Your Name</label>
+          <input type="text" class="field-input" required placeholder="Enter your name">
+        </div>
+        <div class="field-group">
+          <label>Email Address</label>
+          <input type="email" class="field-input" required placeholder="you@example.com">
+        </div>
+        <div class="field-group">
+          <label>Message / Custom Request</label>
+          <textarea class="field-textarea" rows="4" required placeholder="Tell us what you're dreaming of..."></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%; justify-content:center;">Send Message 💌</button>
+      </form>
+
+      <div style="margin-top:30px; display:flex; justify-content:center; gap:20px; text-align:center;">
+        <a id="instagramLink" href="https://instagram.com" target="_blank" class="btn-secondary" style="font-size:0.9rem;"><i class="fa-brands fa-instagram" style="color:#E1306C;"></i> Instagram</a>
+        <a id="whatsappLink" href="https://wa.me/" target="_blank" class="btn-secondary" style="font-size:0.9rem;"><i class="fa-brands fa-whatsapp" style="color:#25D366;"></i> WhatsApp Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Detail & Customization Modal -->
+  <div class="modal-overlay" id="productModal">
+    <div class="modal-content">
+      <button class="modal-close" id="modalCloseBtn">&times;</button>
+      <div class="modal-gallery">
+        <img id="modalMainImg" src="" alt="Product Image" class="main-modal-img">
+        <div class="modal-thumbnails" id="modalThumbnails"></div>
+      </div>
+      <div class="modal-details">
+        <span class="product-category" id="modalCategory">Category</span>
+        <h2 class="modal-title" id="modalTitle">Product Title</h2>
+        <div class="product-price-row">
+          <span class="price-current" id="modalPrice">₹0</span>
+          <span class="price-old" id="modalOldPrice"></span>
+        </div>
+        <p class="modal-desc" id="modalDesc">Product description goes here.</p>
+
+        <!-- Dynamic Customization Form Box -->
+        <div class="customization-box" id="customizationFormBox">
+          <div class="custom-box-title">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Customize Your Order
+          </div>
+          <div id="dynamicCustomFields">
+            <!-- Dynamic fields injected here -->
+          </div>
+        </div>
+
+        <div class="quantity-row">
+          <span style="font-weight:700;">Quantity:</span>
+          <div class="qty-btn-group">
+            <button class="qty-btn" id="qtyMinusBtn">-</button>
+            <span class="qty-val" id="qtyValDisplay">1</span>
+            <button class="qty-btn" id="qtyPlusBtn">+</button>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:12px;">
+          <button class="btn-primary" id="addToCartModalBtn" style="flex:1; justify-content:center;">Add to Cart 🛍️</button>
+          <button class="btn-secondary" id="buyNowModalBtn" style="flex:1; justify-content:center; background:var(--primary-dark); color:white; border:none;">Buy Now ⚡</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Drawer -->
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <div class="cart-title">Your Cart 🎀</div>
+      <button class="modal-close" id="cartCloseBtn" style="position:static;">&times;</button>
+    </div>
+    <div class="cart-items-list" id="cartItemsList">
+      <!-- Cart Items -->
+    </div>
+    <div class="cart-footer">
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span id="cartSubtotal" style="font-weight:700;">₹0</span>
+      </div>
+      <div class="summary-row">
+        <span>Shipping</span>
+        <span style="font-weight:700; color:#166534;">FREE</span>
+      </div>
+      <div class="summary-row summary-total">
+        <span>Total</span>
+        <span id="cartTotal">₹0</span>
+      </div>
+      <button class="btn-primary" id="checkoutBtn" style="width:100%; justify-content:center; margin-top:14px;">Proceed to Checkout ✨</button>
+    </div>
+  </div>
+
+  <!-- Checkout Modal -->
+  <div class="modal-overlay" id="checkoutModal">
+    <div class="modal-content" style="max-width:650px; grid-template-columns:1fr;">
+      <button class="modal-close" id="checkoutCloseBtn">&times;</button>
+      <div style="padding:32px;">
+        <h2 style="font-size:1.6rem; font-weight:800; margin-bottom:6px;">Delivery & Order Details</h2>
+        <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:24px;">Please enter your delivery information below to proceed with real-time Razorpay payment.</p>
+
+        <form id="checkoutForm">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+            <div class="field-group">
+              <label>Full Name *</label>
+              <input type="text" id="custName" class="field-input" required placeholder="e.g. Ananya Sharma">
+            </div>
+            <div class="field-group">
+              <label>Mobile Phone *</label>
+              <input type="tel" id="custPhone" class="field-input" required placeholder="10-digit mobile number">
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label>Email Address *</label>
+            <input type="email" id="custEmail" class="field-input" required placeholder="you@example.com">
+          </div>
+
+          <div class="field-group">
+            <label>Complete Delivery Address *</label>
+            <textarea id="custAddress" class="field-textarea" rows="2" required placeholder="House No, Street, Landmark..."></textarea>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px;">
+            <div class="field-group">
+              <label>City *</label>
+              <input type="text" id="custCity" class="field-input" required placeholder="City">
+            </div>
+            <div class="field-group">
+              <label>State *</label>
+              <input type="text" id="custState" class="field-input" required placeholder="State">
+            </div>
+            <div class="field-group">
+              <label>Pincode *</label>
+              <input type="text" id="custPincode" class="field-input" required placeholder="6-digit pincode">
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label>Order Notes / Gift Note (Optional)</label>
+            <input type="text" id="custNotes" class="field-input" placeholder="Any special delivery request?">
+          </div>
+
+          <div style="background:var(--primary-soft); padding:16px; border-radius:var(--radius-md); margin:20px 0;">
+            <div style="display:flex; justify-content:space-between; font-weight:800; font-size:1.1rem;">
+              <span>Total Payable Amount:</span>
+              <span id="checkoutTotalPayable" style="color:var(--primary-dark);">₹0</span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width:100%; justify-content:center; font-size:1.1rem;">
+            Pay Now with Razorpay 💳
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Success Modal -->
+  <div class="modal-overlay" id="orderSuccessModal" style="display:none;">
+    <div class="modal-content" style="max-width:550px; grid-template-columns:1fr;">
+      <div style="padding:32px; text-align:center;">
+        <div style="width:70px; height:70px; background:#DCFCE7; color:#166534; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2.2rem; margin:0 auto 16px;">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <h2 style="font-size:1.8rem; font-weight:800; color:#15803D; margin-bottom:6px;">Order Placed Successfully! 🎀</h2>
+        <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:24px;">Thank you for your order! Your handmade charms are being crafted with love.</p>
+
+        <div style="background:#F8FAFC; border:1px dashed #CBD5E1; border-radius:12px; padding:18px; text-align:left; margin-bottom:24px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid #E2E8F0; padding-bottom:8px;">
+            <span style="font-size:0.85rem; color:#64748B;">Order ID:</span>
+            <span id="successOrderId" style="font-weight:700; font-family:monospace; color:var(--text-main);">#LC-00000</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid #E2E8F0; padding-bottom:8px;">
+            <span style="font-size:0.85rem; color:#64748B;">Payment Status:</span>
+            <span id="successPaymentStatus" style="font-weight:700; color:#166534; background:#DCFCE7; padding:2px 10px; border-radius:12px; font-size:0.8rem;">Paid</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:12px; border-bottom:1px solid #E2E8F0; padding-bottom:8px;">
+            <span style="font-size:0.85rem; color:#64748B;">Order Status:</span>
+            <span id="successOrderStatus" style="font-weight:700; color:var(--primary-dark); background:var(--primary-soft); padding:2px 10px; border-radius:12px; font-size:0.8rem;">Processing</span>
+          </div>
+
+          <div style="font-size:0.85rem; font-weight:700; margin-bottom:8px; color:#334155;">Items Purchased:</div>
+          <div id="successItemsList" style="display:flex; flex-direction:column; gap:6px; font-size:0.85rem; color:#475569; max-height:120px; overflow-y:auto;">
+            <!-- Dynamic Purchased Items -->
+          </div>
+
+          <div style="display:flex; justify-content:space-between; margin-top:14px; padding-top:10px; border-top:1px solid #E2E8F0; font-size:1.1rem; font-weight:800;">
+            <span>Total Amount Paid:</span>
+            <span id="successTotalAmount" style="color:var(--primary-dark);">₹0</span>
+          </div>
+        </div>
+
+        <button class="btn-primary" id="successDoneBtn" style="width:100%; justify-content:center; font-size:1rem;">Continue Shopping ✨</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3 id="footerBrandName">Lil Charm 🎀</h3>
+        <p style="color:#9CA3AF; font-size:0.9rem;">Handmade customized clay charms, personalized keychains, and aesthetic gifts made with love.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#shop">Shop Collection</a></li>
+          <li><a href="#about">Our Story</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Customer Care</h4>
+        <ul class="footer-links">
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Returns & Refunds</a></li>
+          <li><a href="#">Customization FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Admin Access</h4>
+        <ul class="footer-links">
+          <li><a href="/admin.html" style="color:var(--primary-pink); font-weight:700;"><i class="fa-solid fa-lock"></i> Admin Dashboard</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 Lil Charm Official. All Rights Reserved. Built with Love 💕
+    </div>
+  </footer>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
