@@ -320,13 +320,30 @@
               </label>
             </div>
 
-            <!-- UPI QR Scanner Box (Shown when Scan UPI QR is selected) -->
+            <!-- UPI Direct App Launch & QR Scanner Box -->
             <div id="upiQrPaymentBox" style="display:none; background:#FFF5F7; border:2px dashed var(--primary-pink); border-radius:14px; padding:20px; text-align:center; margin-bottom:16px;">
-              <div style="font-weight:800; font-size:1.05rem; color:var(--primary-dark); margin-bottom:4px;">Scan PhonePe / GPay / Paytm QR Code</div>
-              <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:14px;">Scan with PhonePe, Google Pay, Paytm, or any UPI App</p>
+              <div style="font-weight:800; font-size:1.05rem; color:var(--primary-dark); margin-bottom:4px;">Pay Directly via PhonePe / GPay / Paytm 📲</div>
+              <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:14px;">Tap a button below on mobile to open app directly, or scan the QR code!</p>
 
+              <!-- One-Tap Direct App Launchers (Like Flipkart) -->
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px;">
+                <button type="button" onclick="launchUpiApp('phonepe')" style="background:#5F259F; color:white; border:none; padding:10px 14px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
+                  <span>🟣 PhonePe</span>
+                </button>
+                <button type="button" onclick="launchUpiApp('gpay')" style="background:#4285F4; color:white; border:none; padding:10px 14px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
+                  <span>🔵 Google Pay</span>
+                </button>
+                <button type="button" onclick="launchUpiApp('paytm')" style="background:#00BAF2; color:white; border:none; padding:10px 14px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
+                  <span>🟦 Paytm</span>
+                </button>
+                <button type="button" onclick="launchUpiApp('any')" style="background:#10B981; color:white; border:none; padding:10px 14px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
+                  <span>📲 Any UPI App</span>
+                </button>
+              </div>
+
+              <!-- Clean PhonePe QR Code -->
               <div style="background:white; display:inline-block; padding:12px; border-radius:14px; box-shadow:0 4px 12px rgba(0,0,0,0.08); margin-bottom:12px;">
-                <img id="upiQrCodeImg" src="/images/phonepe_qr.png" alt="PhonePe UPI QR Code" style="max-width:220px; width:100%; height:auto; border-radius:8px; display:block;">
+                <img id="upiQrCodeImg" src="/images/phonepe_qr.png" alt="PhonePe Official QR Code" style="max-width:220px; width:100%; height:auto; border-radius:8px; display:block;">
               </div>
 
               <div style="font-size:0.9rem; font-weight:700; color:#334155; margin-bottom:4px;">Official UPI ID: <span style="color:var(--primary-dark); font-family:monospace; background:white; padding:3px 10px; border-radius:6px; border:1px solid #FBCFE8; font-size:0.95rem;">7893036683@ybl</span></div>

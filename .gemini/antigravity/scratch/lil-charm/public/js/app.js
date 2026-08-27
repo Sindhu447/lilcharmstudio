@@ -329,6 +329,30 @@ function toggleCartDrawer(show) {
   }
 }
 
+function launchUpiApp(appName) {
+  const total = currentCart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+  const upiId = '7893036683@ybl';
+  const payeeName = encodeURIComponent('Lil Charm Official');
+  const upiUri = `upi://pay?pa=${upiId}&pn=${payeeName}&am=${total}&cu=INR`;
+
+  try {
+    if (appName === 'phonepe') {
+      window.location.href = `phonepe://pay?pa=${upiId}&pn=${payeeName}&am=${total}&cu=INR`;
+    } else if (appName === 'gpay') {
+      window.location.href = `tez://upi/pay?pa=${upiId}&pn=${payeeName}&am=${total}&cu=INR`;
+    } else if (appName === 'paytm') {
+      window.location.href = `paytmmp://pay?pa=${upiId}&pn=${payeeName}&am=${total}&cu=INR`;
+    } else {
+      window.location.href = upiUri;
+    }
+    setTimeout(() => { window.location.href = upiUri; }, 500);
+  } catch (e) {
+    window.location.href = upiUri;
+  }
+
+  showToast('Opening UPI App on your mobile phone... 📲', 'success');
+}
+
 function togglePaymentMethod(type) {
   const razorpayLabel = document.getElementById('paymentMethodRazorpayLabel');
   const qrLabel = document.getElementById('paymentMethodQrLabel');
