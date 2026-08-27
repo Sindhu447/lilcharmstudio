@@ -25,42 +25,47 @@ function parseProduct(p) {
 router.get('/', async (req, res) => {
   try {
     const { category, search, admin } = req.query;
-    let products = [];
+    let productsMap = new Map();
 
+    // 1. Fetch from local JSON store first
+    let localList = await dbAll('products');
+    for (const p of localList) {
+      const parsed = parseProduct(p);
+      if (parsed) productsMap.set(parsed.id, parsed);
+    }
+
+    // 2. Fetch from Supabase if configured
     if (isSupabaseConfigured && supabase) {
-      let query = supabase.from('products').select('*').order('created_at', { ascending: false });
-
-      if (admin !== 'true') {
-        query = query.eq('is_available', true);
-      }
-      if (category) {
-        query = query.eq('category', category);
-      }
-      if (search) {
-        query = query.ilike('name', `%${search}%`);
-      }
-
-      const { data, error } = await query;
-      if (!error && data) {
-        products = data.map(parseProduct);
+      try {
+        let query = supabase.from('products').select('*').order('created_at', { ascending: false });
+        const { data, error } = await query;
+        if (!error && data && data.length) {
+          for (const p of data) {
+            const parsed = parseProduct(p);
+            if (parsed) productsMap.set(parsed.id, parsed);
+          }
+        }
+      } catch (sbErr) {
+        console.warn('Supabase fetch products warning:', sbErr.message);
       }
     }
 
-    // Fallback if Supabase not configured or returns empty list
-    if (!products.length) {
-      let list = await dbAll('products');
-      if (admin !== 'true') {
-        list = list.filter(p => p.is_available !== false);
-      }
-      if (category) {
-        list = list.filter(p => (p.category || '').toLowerCase() === category.toLowerCase());
-      }
-      if (search) {
-        const q = search.toLowerCase();
-        list = list.filter(p => (p.name || '').toLowerCase().includes(q) || (p.description || '').toLowerCase().includes(q));
-      }
-      products = list.map(parseProduct);
+    let products = Array.from(productsMap.values());
+
+    // Apply filtering
+    if (admin !== 'true') {
+      products = products.filter(p => p.is_available !== false);
     }
+    if (category) {
+      products = products.filter(p => (p.category || '').toLowerCase() === category.toLowerCase());
+    }
+    if (search) {
+      const q = search.toLowerCase();
+      products = products.filter(p => (p.name || '').toLowerCase().includes(q) || (p.description || '').toLowerCase().includes(q));
+    }
+
+    // Sort by newest created_at
+    products.sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
 
     res.json({ success: true, count: products.length, products });
   } catch (err) {
@@ -76,8 +81,10 @@ router.get('/:id', async (req, res) => {
     let product = null;
 
     if (isSupabaseConfigured && supabase) {
-      const { data, error } = await supabase.from('products').select('*').eq('id', id).single();
-      if (!error && data) product = parseProduct(data);
+      try {
+        const { data, error } = await supabase.from('products').select('*').eq('id', id).single();
+        if (!error && data) product = parseProduct(data);
+      } catch (e) {}
     }
 
     if (!product) {
@@ -128,13 +135,18 @@ router.post('/', verifyAdmin, async (req, res) => {
       updated_at: new Date().toISOString()
     };
 
+    // Save to local store
+    await dbRun('insert_product', newProduct);
+
+    // Also sync to Supabase if configured
     if (isSupabaseConfigured && supabase) {
-      const { data, error } = await supabase.from('products').insert([newProduct]).select();
-      if (error) throw error;
-      return res.json({ success: true, message: 'Product added successfully to Supabase! 🎀', product: parseProduct(data[0]) });
+      try {
+        await supabase.from('products').insert([newProduct]);
+      } catch (sbErr) {
+        console.warn('Supabase insert product warning:', sbErr.message);
+      }
     }
 
-    await dbRun('insert_product', newProduct);
     res.json({ success: true, message: 'Product added successfully! 🎀', product: parseProduct(newProduct) });
   } catch (err) {
     console.error('Create product error:', err);
@@ -165,14 +177,19 @@ router.put('/:id', verifyAdmin, async (req, res) => {
     if (stock !== undefined) updatedData.stock = parseInt(stock, 10);
     if (is_available !== undefined) updatedData.is_available = Boolean(is_available);
 
-    if (isSupabaseConfigured && supabase) {
-      const { data, error } = await supabase.from('products').update(updatedData).eq('id', id).select();
-      if (error) throw error;
-      return res.json({ success: true, message: 'Product updated in Supabase! 🎀', product: parseProduct(data[0]) });
-    }
-
+    // Update local store
     await dbRun('update_product', { id, ...updatedData });
     const row = await dbGet('products', 'id', id);
+
+    // Sync to Supabase if configured
+    if (isSupabaseConfigured && supabase) {
+      try {
+        await supabase.from('products').update(updatedData).eq('id', id);
+      } catch (sbErr) {
+        console.warn('Supabase update product warning:', sbErr.message);
+      }
+    }
+
     res.json({ success: true, message: 'Product updated successfully! 🎀', product: parseProduct(row) });
   } catch (err) {
     console.error('Update product error:', err);
@@ -185,13 +202,18 @@ router.delete('/:id', verifyAdmin, async (req, res) => {
   try {
     const { id } = req.params;
 
+    // Delete from local store
+    await dbRun('delete_product', { id });
+
+    // Sync deletion to Supabase if configured
     if (isSupabaseConfigured && supabase) {
-      const { error } = await supabase.from('products').delete().eq('id', id);
-      if (error) throw error;
-      return res.json({ success: true, message: 'Product deleted from Supabase successfully!' });
+      try {
+        await supabase.from('products').delete().eq('id', id);
+      } catch (sbErr) {
+        console.warn('Supabase delete product warning:', sbErr.message);
+      }
     }
 
-    await dbRun('delete_product', { id });
     res.json({ success: true, message: 'Product deleted successfully!' });
   } catch (err) {
     console.error('Delete product error:', err);
