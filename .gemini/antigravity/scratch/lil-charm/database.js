@@ -40,37 +40,13 @@ function loadJsonDb() {
       ],
       products: [
         {
-          id: 'prod_1',
-          name: 'Strawberry Pastel Charm 🍓',
-          description: 'Handcrafted polymer clay strawberry keychain with glossy resin coat.',
-          price: 249,
+          id: 'prod_booba_1',
+          name: 'booba bear keychain',
+          description: 'Handcrafted cute booba bear charm keychain.',
+          price: 60,
           image_url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
           category: 'Keychains',
-          stock: 25,
-          is_available: true,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
-        },
-        {
-          id: 'prod_2',
-          name: 'Matchy Donut Couple Charms 🍩',
-          description: 'Set of two matching donut keychains personalized for besties and couples.',
-          price: 399,
-          image_url: 'https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=800&q=80',
-          category: 'Couple Charms',
-          stock: 15,
-          is_available: true,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
-        },
-        {
-          id: 'prod_3',
-          name: 'Cute Avocado Bag Charm 🥑',
-          description: 'Adorable miniature avocado charm with custom initials tag.',
-          price: 199,
-          image_url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80',
-          category: 'Bag Charms',
-          stock: 10,
+          stock: 2,
           is_available: true,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString()
