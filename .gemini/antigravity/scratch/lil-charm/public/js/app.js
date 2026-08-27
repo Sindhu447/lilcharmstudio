@@ -335,8 +335,6 @@ function togglePaymentMethod(type) {
   const qrBox = document.getElementById('upiQrPaymentBox');
   const submitBtn = document.getElementById('checkoutSubmitBtn');
 
-  const total = currentCart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
-
   if (type === 'upi_qr') {
     if (razorpayLabel) { razorpayLabel.style.border = '2px solid #E2E8F0'; razorpayLabel.style.background = '#F8FAFC'; }
     if (qrLabel) { qrLabel.style.border = '2px solid var(--primary-pink)'; qrLabel.style.background = 'var(--primary-soft)'; }
@@ -345,7 +343,7 @@ function togglePaymentMethod(type) {
 
     const qrImg = document.getElementById('upiQrCodeImg');
     if (qrImg) {
-      qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=lilcharmstudio@upi%26pn=Lil%20Charm%20Official%26am=${total}%26cu=INR`;
+      qrImg.src = '/images/phonepe_qr.png';
     }
   } else {
     if (razorpayLabel) { razorpayLabel.style.border = '2px solid var(--primary-pink)'; razorpayLabel.style.background = 'var(--primary-soft)'; }

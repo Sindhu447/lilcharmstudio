@@ -322,16 +322,17 @@
 
             <!-- UPI QR Scanner Box (Shown when Scan UPI QR is selected) -->
             <div id="upiQrPaymentBox" style="display:none; background:#FFF5F7; border:2px dashed var(--primary-pink); border-radius:14px; padding:20px; text-align:center; margin-bottom:16px;">
-              <div style="font-weight:800; font-size:1.05rem; color:var(--primary-dark); margin-bottom:4px;">Scan QR Code to Pay</div>
-              <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:14px;">Scan with GPay, PhonePe, Paytm, or any UPI App</p>
+              <div style="font-weight:800; font-size:1.05rem; color:var(--primary-dark); margin-bottom:4px;">Scan PhonePe / GPay / Paytm QR Code</div>
+              <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:14px;">Scan with PhonePe, Google Pay, Paytm, or any UPI App</p>
 
               <div style="background:white; display:inline-block; padding:12px; border-radius:14px; box-shadow:0 4px 12px rgba(0,0,0,0.08); margin-bottom:12px;">
-                <img id="upiQrCodeImg" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=lilcharmstudio@upi%26pn=Lil%20Charm%20Official%26cu=INR" alt="UPI QR Code Scanner" style="width:180px; height:180px; display:block;">
+                <img id="upiQrCodeImg" src="/images/phonepe_qr.png" alt="PhonePe UPI QR Code" style="max-width:220px; width:100%; height:auto; border-radius:8px; display:block;">
               </div>
 
-              <div style="font-size:0.9rem; font-weight:700; color:#334155; margin-bottom:6px;">UPI ID: <span style="color:var(--primary-dark); font-family:monospace; background:white; padding:2px 8px; border-radius:6px; border:1px solid #FBCFE8;">lilcharmstudio@upi</span></div>
+              <div style="font-size:0.9rem; font-weight:700; color:#334155; margin-bottom:4px;">Official UPI ID: <span style="color:var(--primary-dark); font-family:monospace; background:white; padding:3px 10px; border-radius:6px; border:1px solid #FBCFE8; font-size:0.95rem;">7893036683@ybl</span></div>
+              <div style="font-size:0.8rem; color:#64748B;">Canara Bank | Name: Sindhu / Lil Charm</div>
               
-              <div class="field-group" style="text-align:left; margin-top:14px;">
+              <div class="field-group" style="text-align:left; margin-top:16px;">
                 <label style="font-size:0.85rem; font-weight:700;">Enter 12-Digit UPI Transaction / UTR Ref No *</label>
                 <input type="text" id="upiUtrInput" class="field-input" placeholder="e.g. 324156789012" maxlength="16">
               </div>
