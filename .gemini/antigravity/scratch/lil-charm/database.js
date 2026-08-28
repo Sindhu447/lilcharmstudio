@@ -3,22 +3,18 @@ const fs = require('fs');
 const { createClient } = require('@supabase/supabase-js');
 require('dotenv').config();
 
-// Determine if Supabase credentials are validly configured
-const isSupabaseConfigured = Boolean(
-  process.env.SUPABASE_URL && 
-  process.env.SUPABASE_ANON_KEY && 
-  !process.env.SUPABASE_URL.includes('your-supabase-project') &&
-  process.env.SUPABASE_URL.trim() !== ''
-);
+const SUPABASE_URL = process.env.SUPABASE_URL || 'https://yeffzmnukecqtjlqckxk.supabase.co';
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || 'sb_publishable_SnSshFoL4cLhD2znBkBGzg_dm34p0Vt';
+
+const isSupabaseConfigured = Boolean(SUPABASE_URL && SUPABASE_KEY);
 
 let supabase = null;
 if (isSupabaseConfigured) {
   try {
-    const keyToUse = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
-    supabase = createClient(process.env.SUPABASE_URL, keyToUse, {
+    supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
       auth: { persistSession: false }
     });
-    console.log('⚡ Connected to Supabase Database System');
+    console.log('⚡ Connected to Supabase Database System (https://yeffzmnukecqtjlqckxk.supabase.co)');
   } catch (err) {
     console.error('⚠️ Supabase initialization notice:', err.message);
   }
